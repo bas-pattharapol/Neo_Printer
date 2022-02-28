@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print</title>
+</head>
+
+<link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet" id="bootstrap-css" />
+<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+<style>
+    .register {
+        background: -webkit-linear-gradient(left, #0D2257, #0D2257);
+        margin-top: 3%;
+        padding: 3%;
+    }
+    
+    .register-left {
+        text-align: center;
+        color: #fff;
+        margin-top: 4%;
+    }
+    
+    .register-left input {
+        border: none;
+        border-radius: 1.5rem;
+        padding: 2%;
+        width: 60%;
+        background: #f8f9fa;
+        font-weight: bold;
+        color: #383d41;
+        margin-top: 30%;
+        margin-bottom: 3%;
+        cursor: pointer;
+    }
+    
+    .register-right {
+        background: #f8f9fa;
+        border-top-left-radius: 10% 50%;
+        border-bottom-left-radius: 10% 50%;
+    }
+    
+    .register-left img {
+        margin-top: 15%;
+        margin-bottom: 5%;
+        width: 25%;
+        -webkit-animation: mover 2s infinite alternate;
+        animation: mover 1s infinite alternate;
+    }
+    
+    @-webkit-keyframes mover {
+        0% {
+            transform: translateY(0);
+        }
+        100% {
+            transform: translateY(-20px);
+        }
+    }
+    
+    @keyframes mover {
+        0% {
+            transform: translateY(0);
+        }
+        100% {
+            transform: translateY(-20px);
+        }
+    }
+    
+    .register-left p {
+        font-weight: lighter;
+        padding: 12%;
+        margin-top: -9%;
+    }
+    
+    .register .register-form {
+        padding: 10%;
+        margin-top: 10%;
+    }
+    
+    .Print {
+        float: right;
+        margin-top: 11%;
+        border: none;
+        border-radius: 1.5rem;
+        padding: 2%;
+        background: #0062cc;
+        color: #fff;
+        font-weight: 600;
+        font-size: 24px;
+        width: 45%;
+        cursor: pointer;
+        text-align: center;
+    }
+    
+    .List {
+        float: left;
+        margin-top: 10%;
+        border: none;
+        border-radius: 1.5rem;
+        padding: 2%;
+        background: #0062cc;
+        color: #fff;
+        font-weight: 600;
+        font-size: 24px;
+        width: 45%;
+        cursor: pointer;
+    }
+    
+    .back {
+        float: left;
+        margin-top: 11%;
+        border: none;
+        border-radius: 1.5rem;
+        padding: 2%;
+        background: #0062cc;
+        color: #fff;
+        font-weight: 600;
+        font-size: 24px;
+        width: 45%;
+        cursor: pointer;
+        text-align: center;
+    }
+    
+    .register .nav-tabs {
+        margin-top: 3%;
+        border: none;
+        background: #0062cc;
+        border-radius: 1.5rem;
+        width: 28%;
+        float: right;
+    }
+    
+    .register .nav-tabs .nav-link {
+        padding: 2%;
+        height: 34px;
+        font-weight: 600;
+        color: #fff;
+        border-top-right-radius: 1.5rem;
+        border-bottom-right-radius: 1.5rem;
+    }
+    
+    .register .nav-tabs .nav-link:hover {
+        border: none;
+    }
+    
+    .register .nav-tabs .nav-link.active {
+        width: 100px;
+        color: #0062cc;
+        border: 2px solid #0062cc;
+        border-top-left-radius: 1.5rem;
+        border-bottom-left-radius: 1.5rem;
+    }
+    
+    .register-heading {
+        text-align: center;
+        margin-top: 8%;
+        margin-bottom: -15%;
+        color: #495057;
+    }
+    
+    .form-control {
+        border-radius: 1rem;
+        height: 45px;
+    }
+    
+    option {
+        border-radius: 1rem;
+        height: 45px;
+    }
+    
+    h5 {
+        font-size: 24px;
+        height: 40px;
+        color: #fff;
+    }
+    
+    body {
+        background-color: #0D2257;
+    }
+    
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        padding-top: 100px;
+        /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+    }
+    /* Modal Content */
+    
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+</style>
+
+<body>
+    <div class="container register">
+
+        <div class=" tab-content " id=" myTabContent ">
+            <div class=" tab-pane fade show active " id=" home " role=" tabpanel " aria-labelledby=" home-tab ">
+
+                <div class=" register-heading "><img src=" {{ url_for( 'static' , filename='logo.png' ) }} " height=" 100px " alt=" " />
+                </div>
+                <form action="{{ url_for( 'test' )}}" method="post">
+                    <div class=" row register-form ">
+
+                        <div class=" col-md-6 ">
+                            <div class="form-group ">
+                                <h5>Barcode</h5>
+
+                                <select class=" form-control" id="mySelect" onchange="myFunction()" style=" height: 45px; " name="Barcode" action="/ ">
+                                    <option class="form-control" value="-">-</option>
+                                    <option class="form-control" value="8851989960562">8851989960562</option>
+                                    <option class="form-control" value="8851989960944">8851989960944</option>
+                                    <option class="form-control" value="8851989961835">8851989961835</option>
+                                    <option class="form-control" value="8851989960579">8851989960579</option>
+                                    <option class="form-control" value="8851989964669">8851989964669</option>
+                                    <option class="form-control" value="8851989964157">8851989964157</option>
+                                    <option class="form-control" value="8851989965239">8851989965239</option>
+                                    <option class="form-control" value="8851989963068">8851989963068</option>
+
+                                    <option class="form-control" value="78851989080108">78851989080108</option>
+                                    <option class="form-control" value="78851989080153">78851989080153</option>
+                                    <option class="form-control" value="78851989080733">78851989080733</option>
+                                    <option class="form-control" value="78851989081174">78851989081174</option>
+                                    <option class="form-control" value="78851989080115">78851989080115</option>
+                                    <option class="form-control" value="78851989080023">78851989080023</option>
+                                    <option class="form-control" value="78851989080054">78851989080054</option>
+                                    <option class="form-control" value="98851989081161">98851989081161</option>
+                                    <option class="form-control" value="98851989080508">98851989080508</option>
+                                    <option class="form-control" value="98851989080027">98851989080027</option>
+                                    <option class="form-control" value="98851989080409">98851989080409</option>
+                                    <option class="form-control" value="98851989080188">98851989080188</option>
+                                    
+                                    </select>
+
+                            </div>
+
+
+                            <div class=" form-group ">
+                                <div class=" form-group ">
+                                    <h5>Material Name Thai</h5>
+                                    <input class="form-control" type="text" id="S_Material" name="Material" value="-" readonly />
+
+                                </div>
+
+                            </div>
+
+                            <div class=" form-group ">
+
+                                <div class=" form-group ">
+                                    <h5>Mat Name</h5>
+                                    <input class="form-control" type="text" id="S_MatName" name="Mat_Name" value="-" readonly/>
+
+
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+                        <div class="col-md-6 ">
+
+                            <div class=" form-group ">
+                                <div class=" form-group ">
+                                    <h5>Select Machine</h5>
+
+                                    <select class=" form-control" onchange="myFunction()" style=" height: 45px; " name="machineSec" action="/ ">
+                                        <option class="form-control" value="Robotic_5">Robotic_5</option>
+                                        <option class="form-control" value="Robotic_4">Robotic_4</option>
+                                   </select>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group ">
+                                <h5>Amount</h5>
+                                <input class="form-control" type="number" placeholder="Amount *" name="Amount" value="1" />
+                            </div>
+
+                            <div class="form-group ">
+                                <h5>Number</h5>
+                                <input class="form-control" type="text" id="S_Number" name="Number" value="-" readonly/>
+                            </div>
+
+                            <input id="myBtn" type="submit" class="Print" value="Print" />
+
+                            <input onclick="back() " style="text-align: center; " class="back " value="Back" />
+
+                            <div id="myModal" class="modal">
+
+                                <div class="modal-content">
+
+                                    <h1 align="center"> Printer is working. Please don't close the windows.</h1>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</body>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("mySelect").value;
+        var ansMaterial = "";
+        var ansMatName = "";
+        var ansmachineSec = "";
+        var ansNumber = "";
+        if (x == "8851989960562") {
+            ansMaterial = "ผลิตภัณฑ์สบู่เหลว ดีนี่ คิดส์";
+            ansMatName = "200 มล. สีชมพู แพ็ค 3";
+            ansmachineSec = "Robotic_5";
+            ansNumber = "-";
+        } else if (x == "8851989960944") {
+            ansMaterial = "ดีนี่ เบบี้แชมพู";
+            ansMatName = "200 มล. เหลือง แพ็ค 3";
+            ansmachineSec = "Robotic_5";
+            ansNumber = "-";
+        } else if (x == "8851989961835") {
+            ansMaterial = "ผลิตภัณฑ์สบู่เหลว ดีนี่ ฟอร์นิวบอร์น";
+            ansMatName = "ออร์แกนิค 200 มล. สีเขียว แพ็ค 3";
+            ansmachineSec = "Robotic_5";
+            ansNumber = "-";
+        } else if (x == "8851989960579") {
+            ansMaterial = "ผลิตภัณฑ์สบู่เหลว ดีนี่ คิดส์";
+            ansMatName = "200 มล. สีม่วง แพ็ค 3";
+            ansmachineSec = "Robotic_5";
+            ansNumber = "-";
+        } else if (x == "8851989964669") {
+            ansMaterial = "ผลิตภัณฑ์สบู่เหลว ดีนี่ คิดส์";
+            ansMatName = "200 มล. โฟรเซนบลู แพ็ค 3";
+            ansmachineSec = "Robotic_5";
+            ansNumber = "-";
+        } else if (x == "8851989964157") {
+            ansMaterial = "ผลิตภัณฑ์สบู่เหลว ดีนี่ คิดส์";
+            ansMatName = "200 มล. สีแดง แพ็ค 3";
+            ansmachineSec = "Robotic_5";
+            ansNumber = "-";
+        } else if (x == "8851989965239") {
+            ansMaterial = "ผลิตภัณฑ์สบู่เหลว ดีนี่ คิดส์";
+            ansMatName = "200 มล. สีฟ้า เบอร์รี่ บีทรูท แพ็ค 3";
+            ansmachineSec = "Robotic_5";
+            ansNumber = "-";
+        } else if (x == "8851989963068") {
+            ansMaterial = "ผลิตภัณฑ์แชมพูทรีอินวัน ดีนี่ คิดส์";
+            ansMatName = "200 มล. สีเหลือง แพ็ค 3";
+            ansmachineSec = "Robotic_5";
+            ansNumber = "-";
+        } else if (x == "78851989080108") {
+            ansMaterial = "บีไนช์ ครีมอาบนำ้ 180 มล.x3 สีขาวอมชมพู";
+            ansMatName = "-";
+            ansmachineSec = "Robotic_4";
+            ansNumber = "031-0362";
+        } else if (x == "78851989080153") {
+            ansMaterial = "บีไนช์ครีมอาบนำ้ แอนตี้แบคที่เรีย 180 มล.x3 สีชมพู";
+            ansMatName = "-";
+            ansmachineSec = "Robotic_4";
+            ansNumber = "035-0209";
+        } else if (x == "78851989080733") {
+            ansMaterial = "บีไนช์ครีมอาบนำ้ แอนตี้แบคที่เรีย 180 มล.x3 สีเขียว";
+            ansMatName = "-";
+            ansmachineSec = "Robotic_4";
+            ansNumber = "035-0173";
+        } else if (x == "78851989081174") {
+            ansMaterial = "บีไนช์ครีมอาบนำ้ 180 มล.x3 สีขาว";
+            ansMatName = "-";
+            ansmachineSec = "Robotic_4";
+            ansNumber = "031-0481";
+        } else if (x == "78851989080115") {
+            ansMaterial = "บีไนช์ ครีมอาบนำ้ 180 มล.x3 สีแดง";
+            ansMatName = "-";
+            ansmachineSec = "Robotic_4";
+            ansNumber = "031-0348";
+        } else if (x == "78851989080023") {
+            ansMaterial = "บีไนช์ ครีมอาบนำ้ 90 มล.x3 สีเขียว";
+            ansMatName = "-";
+            ansmachineSec = "Robotic_4";
+            ansNumber = "031-0362";
+        } else if (x == "78851989080054") {
+            ansMaterial = "บีไนช์ ครีมอาบนำ้ 180 มล.x3 สีเขียว";
+            ansMatName = "-";
+            ansmachineSec = "Robotic_4";
+            ansNumber = "031-0478";
+        } else if (x == "98851989081161") {
+            ansMaterial = "บีไนช์ครีมอาบนำ้ 90 มล.x6 สีขาว";
+            ansMatName = "-";
+            ansmachineSec = "Robotic_4";
+            ansNumber = "031-0490";
+        } else if (x == "98851989080508") {
+            ansMaterial = "บีไนช์ครีมอาบนำ้ แอนตี้แบคทีเรีย 90 มล.x6 สีชมพู";
+            ansMatName = "-";
+            ansmachineSec = "Robotic_4";
+            ansNumber = "031-0110";
+        } else if (x == "98851989080027") {
+            ansMaterial = "บีไนช์ ครีมอาบนำ้ 90 มล.x6 สีเขียว";
+            ansMatName = "-";
+            ansmachineSec = "Robotic_4";
+            ansNumber = "031-0488";
+        } else if (x == "98851989080409") {
+            ansMaterial = "บีไนช์ ครีมอาบนำ้ 90 มล.x6 สีแดง";
+            ansMatName = "-";
+            ansmachineSec = "Robotic_4";
+            ansNumber = "031-0489";
+        } else if (x == "98851989080188") {
+            ansMaterial = "บีไนช์ ครีมอาบนำ้ 90 มล.x6 สีขาวอมชมพู";
+            ansMatName = "-";
+            ansmachineSec = "Robotic_4";
+            ansNumber = "031-0487";
+        }
+        document.getElementById("S_Material").value = ansMaterial;
+        document.getElementById("S_MatName").value = ansMatName;
+        document.getElementById("S_Number").value = ansNumber;
+
+
+    }
+</script>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    function cctv() {
+        close();
+        window.open('/test');
+        window.close();
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+</html>
